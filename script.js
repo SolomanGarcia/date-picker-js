@@ -16,6 +16,7 @@ let currentDate = new Date();
 datePickerButton.addEventListener("click", () => {
   datePicker.classList.toggle("show");
   const selectedDate = fromUnixTime(datePickerButton.dataset.selectedDate);
+  currentDate = selectedDate;
   setupDatePicker(selectedDate);
 });
 
@@ -24,27 +25,18 @@ function setDate(date) {
   datePickerButton.dataset.selectedDate = getUnixTime(date);
 }
 
-function setupDatePicker(selectedDate) {
-  datePickerHeaderText.innerText = format(selectedDate, "MMMM - yyyy");
-  setupMonthButtons(selectedDate);
+function setupDatePicker() {
+  datePickerHeaderText.innerText = format(currentDate, "MMMM - yyyy");
 }
 
-function setupMonthButtons(selectedDate) {
-  nextMonthButton.addEventListener(
-    "click",
-    () => {
-      setupDatePicker(addMonths(selectedDate, 1));
-    },
-    { once: true }
-  );
+nextMonthButton.addEventListener("click", () => {
+  currentDate = addMonths(currentDate, 1);
+  setupDatePicker();
+});
 
-  previosMonthButton.addEventListener(
-    "click",
-    () => {
-      setupDatePicker(subMonths(selectedDate, 1));
-    },
-    { once: true }
-  );
-}
+previousMonthButton.addEventListener("click", () => {
+  currentDate = subMonths(currentDate, 1);
+  setupDatePicker();
+});
 
 setDate(new Date());
