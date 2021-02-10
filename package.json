@@ -1,0 +1,27 @@
+{
+  "name": "date-picker-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build inde.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SolomanGarcia/date-picker-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SolomanGarcia/date-picker-js/issues"
+  },
+  "homepage": "https://github.com/SolomanGarcia/date-picker-js#readme",
+  "dependencies": {
+    "date-fns": "^2.17.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
