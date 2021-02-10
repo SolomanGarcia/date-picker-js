@@ -3,7 +3,12 @@ import {
   getUnixTime,
   fromUnixTime,
   addMonths,
-  subMonths
+  subMonths,
+  startOfWeek,
+  startOfMonth,
+  endOfWeek,
+  endOfMonth,
+  eachDayOfInterval
 } from "date-fns";
 
 const datePickerButton = document.querySelector(".date-picker-button");
@@ -11,6 +16,7 @@ const datePicker = document.querySelector(".date-picker");
 const datePickerHeaderText = document.querySelector(".current-month");
 const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthButton = document.querySelector(".next-month-button");
+const dateGrid = document.querySelector(".date-picker-grid-dates");
 let currentDate = new Date();
 
 datePickerButton.addEventListener("click", () => {
@@ -25,8 +31,23 @@ function setDate(date) {
   datePickerButton.dataset.selectedDate = getUnixTime(date);
 }
 
-function setupDatePicker() {
+function setupDatePicker(selectedDate) {
   datePickerHeaderText.innerText = format(currentDate, "MMMM - yyyy");
+  setupDates(selectedDate);
+}
+
+function setupDates(selectedDate) {
+  const firstWeekStart = startOfWeek(startOfMonth(currentDate));
+  const lastWeekEnd = endOfWeek(endOfMonth(currentDate));
+  const dates = eachDayOfInterval({ start: firstWeekStart, end: lastWeekEnd });
+  dateGrid.innerHTML = "";
+
+  dates.forEach((date) => {
+    const dateElement = document.createElement("button");
+    dateElement.classList.add("date");
+    dateElement.innerText = date.getDate();
+    dateGrid.appendChild(dateElement);
+  });
 }
 
 nextMonthButton.addEventListener("click", () => {
